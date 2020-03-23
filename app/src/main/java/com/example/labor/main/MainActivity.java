@@ -1,4 +1,4 @@
-package com.example.labor.main.ui.main;
+package com.example.labor.main;
 
 import android.os.Bundle;
 
