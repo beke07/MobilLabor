@@ -1,7 +1,8 @@
-package com.example.labor;
+package com.example.labor.main;
 
 import android.os.Bundle;
 
+import com.example.labor.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
