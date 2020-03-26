@@ -9,4 +9,9 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="delete">Törlés</string>
+    <string name="empty">Nincs megjeleníthető adat.</string>
+    <string name="details">részletek</string>
+    <string name="back">vissza</string>
+    <string name="create">Létrehozás</string>
 </resources>
