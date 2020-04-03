@@ -2,7 +2,7 @@ package com.example.labor.main.interactor;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.labor.main.db.CivilizationRepository;
+import com.example.labor.main.data.CivilizationRepository;
 import com.example.labor.main.interactor.event.GetCivilizationsEvent;
 import com.example.labor.main.interactor.event.RemoveCivilizationEvent;
 import com.example.labor.main.model.Civilization;
@@ -22,18 +22,14 @@ import retrofit2.Response;
 
 public class Interactor {
 
-    CivilizationApi civilizationApi;
-    CivilizationRepository civilizationRepository;
+    private CivilizationApi civilizationApi;
+    private CivilizationRepository civilizationRepository;
 
     @Inject
     public Interactor(CivilizationApi civilizationApi, CivilizationRepository civilizationRepository) {
         this.civilizationApi = civilizationApi;
         this.civilizationRepository = civilizationRepository;
         EventBus.getDefault().register(this);
-    }
-
-    public void removeCivilization(int index) {
-        civilizationRepository.delete(index);
     }
 
     public void createCivilization(Civilization civilization) {
@@ -45,7 +41,7 @@ public class Interactor {
         if (event.getThrowable() != null) {
             event.getThrowable().printStackTrace();
         } else {
-            removeCivilization(event.getPosition());
+            civilizationRepository.delete(event.getPosition());
         }
     }
 
@@ -63,8 +59,12 @@ public class Interactor {
             if (response.code() != 200) {
                 throw new Exception("A népek lekérése sikertelen!");
             }
-
+            
             List<Civilization> civilizationResult = response.body().getCivilizations();
+
+            if(civilizationResult == null){
+                throw new Exception("A népek lekérése sikertelen!");
+            }
 
             for (Civilization civilization : civilizationResult) {
                 civilizationRepository.insert(civilization);
