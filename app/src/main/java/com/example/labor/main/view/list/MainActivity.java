@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.labor.R;
+import com.example.labor.main.interactor.event.GetCivilizationsEvent;
 import com.example.labor.main.model.Civilization;
+import com.example.labor.main.model.CivilizationResult;
 import com.example.labor.main.view.create.CreateActivity;
 import com.example.labor.main.view.details.DetailsActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -12,8 +14,11 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -24,6 +29,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +38,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements MainScreen, CivilizationAdapter.OnCivilizationListener {
 
@@ -64,6 +73,17 @@ public class MainActivity extends AppCompatActivity implements MainScreen, Civil
 
         swipeRefreshLayoutCivilizations = this.findViewById(R.id.swipeRefreshLayoutCivilizations);
 
+        final LiveData<List<Civilization>> civilizations = mainPresenter.interactor.getCivilizations();
+        civilizations.observe(this, new Observer<List<Civilization>>() {
+            @Override
+            public void onChanged(@Nullable List<Civilization> civilizations) {
+                if (civilizations == null || civilizations.size() == 0) {
+                    mainPresenter.initCivilizations();
+                } else {
+                    mainPresenter.showCivilizations(civilizations);
+                }
+            }
+        });
         swipeRefreshLayoutCivilizations.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

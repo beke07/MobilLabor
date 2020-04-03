@@ -1,7 +1,5 @@
 package com.example.labor.main;
 
-import android.app.Application;
-
 import com.example.labor.main.network.NetworkModule;
 import com.example.labor.main.view.module.ActivityModule;
 import com.example.labor.main.view.module.ViewModule;
@@ -16,11 +14,13 @@ import dagger.android.support.AndroidSupportInjectionModule;
 @Component(modules = {ActivityModule.class, ViewModule.class, NetworkModule.class, AndroidSupportInjectionModule.class})
 public interface CivilizationComponent {
 
+    CivilizationComponent getComponent();
+
     @Component.Builder
     interface Builder {
 
         @BindsInstance
-        Builder application (Application application);
+        Builder application (CivilizationApplication application);
 
         CivilizationComponent build();
     }

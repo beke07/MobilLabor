@@ -9,24 +9,57 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="6">
+        android:padding="10dp"
+        android:weightSum="6"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_weight="5">
-        </TextView>
+            android:gravity="center_horizontal"
+            android:padding="10dp"
+            android:layout_weight="1"
+            android:text="Nép részletei"
+            android:textAlignment="center"></TextView>
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:enabled="false"
+            android:layout_height="wrap_content">
+        </EditText>
+
+        <EditText
+            android:id="@+id/expansion"
+            android:enabled="false"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </EditText>
+
+        <EditText
+            android:id="@+id/arm_type"
+            android:enabled="false"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </EditText>
+
+        <EditText
+            android:id="@+id/team_bonus"
+            android:enabled="false"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </EditText>
 
         <Button
             android:id="@+id/back"
             android:layout_width="match_parent"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="@string/back"
-            android:layout_weight="1">
-        </Button>
+            android:text="@string/back"></Button>
 
     </LinearLayout>
 

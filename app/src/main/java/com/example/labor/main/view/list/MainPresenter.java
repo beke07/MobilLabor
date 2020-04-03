@@ -1,15 +1,22 @@
 package com.example.labor.main.view.list;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+
 import com.example.labor.main.di.Network;
 import com.example.labor.main.interactor.event.GetCivilizationsEvent;
 import com.example.labor.main.interactor.Interactor;
 import com.example.labor.main.interactor.event.RemoveCivilizationEvent;
+import com.example.labor.main.model.Civilization;
 import com.example.labor.main.presenter.Presenter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
@@ -36,7 +43,7 @@ public class MainPresenter extends Presenter<MainScreen> {
         super.detachScreen();
     }
 
-    public void refreshCivilizations(){
+    public void refreshCivilizations() {
         networkExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -45,18 +52,32 @@ public class MainPresenter extends Presenter<MainScreen> {
         });
     }
 
-    public void removeCivilization(int position){
+    public void initCivilizations() {
+        networkExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                interactor.initCivilizations();
+            }
+        });
+    }
+
+    public void removeCivilization(int position) {
 
         RemoveCivilizationEvent event = new RemoveCivilizationEvent();
 
-        try{
+        try {
             event.setCode(200);
             event.setPosition(position);
             EventBus.getDefault().post(event);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             event.setThrowable(e);
             EventBus.getDefault().post(event);
+        }
+    }
+
+    public void showCivilizations(List<Civilization> civilizations){
+        if (screen != null) {
+            screen.showCivilizations(civilizations);
         }
     }
 
@@ -68,9 +89,7 @@ public class MainPresenter extends Presenter<MainScreen> {
                 screen.showNetworkError(event.getThrowable().getMessage());
             }
         } else {
-            if (screen != null) {
-                screen.showCivilizations(event.getCivilizations());
-            }
+            showCivilizations(event.getCivilizations());
         }
     }
 }

@@ -6,36 +6,64 @@
     android:layout_height="match_parent"
     tools:context=".main.view.create.CreateActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="6">
+        android:layout_height="match_parent">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/create"
-            android:layout_weight="4">
-        </TextView>
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/create"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/create"
-            android:layout_weight="1">
-        </Button>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="Nép létrehozása"
+                android:textAlignment="center"></TextView>
 
-        <Button
-            android:id="@+id/back"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/back"
-            android:layout_weight="1">
-        </Button>
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:hint="Név..."
+                android:layout_height="wrap_content">
+            </EditText>
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/expansion"
+                android:layout_width="match_parent"
+                android:hint="Kiegészítő..."
+                android:layout_height="wrap_content">
+            </EditText>
 
+            <EditText
+                android:id="@+id/arm_type"
+                android:hint="Hadsereg típusa..."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </EditText>
+
+            <EditText
+                android:id="@+id/team_bonus"
+                android:hint="Bónusz..."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </EditText>
+
+            <Button
+                android:id="@+id/create"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/create"></Button>
+
+            <Button
+                android:id="@+id/back"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/back"></Button>
+
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
