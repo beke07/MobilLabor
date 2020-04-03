@@ -59,7 +59,7 @@ public class Interactor {
             if (response.code() != 200) {
                 throw new Exception("A népek lekérése sikertelen!");
             }
-            
+
             List<Civilization> civilizationResult = response.body().getCivilizations();
 
             if(civilizationResult == null){
